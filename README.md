@@ -6,7 +6,12 @@ LINK TO REPO: https://github.com/thinkful-ei-tiger/Madison-Slansky-bookmarks-app
 
 
 Project Overview:
-Frontend API powered bookmark application that allows for the storage and rating of URLS. 
+
+Save your best bookmarks, rate them, and organize by your favorites!
+
+(Frontend API powered bookmark application that allows for the storage and rating of URLS)
+
+
 
 USER STORIES:
 As a user:
@@ -20,7 +25,6 @@ As a user:
 3).I can click on a bookmark to display the "detailed" view
   -Detailed view expands to additionally display description and a "Visit Site" link
 4).I can remove bookmarks from my bookmark list
-  - I receive appropriate feedback when I cannot submit a bookmark
 5).Check all validations in the API documentation
 6).I can select from a dropdown a "minimum rating" to filter the list by all bookmarks rated at or above the chosen selection
 
