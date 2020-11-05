@@ -1,4 +1,9 @@
 // API action functions // 
+import bookmarks from './bookmarks.js'
+import store from './STORE.js'
+import $ from 'jquery';
+
+
 function createBookmark(bookmark) {
   fetch('https://thinkful-list-api.herokuapp.com/madisonslansky/bookmarks', {
     method: "POST",
@@ -6,7 +11,15 @@ function createBookmark(bookmark) {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(response => console.log(response)).then(renderStartPage)
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json.message) {
+        window.alert(json.message);
+      } else if (json.id) {
+        bookmarks.refreshStartPage();
+      }
+    });
 }
 
 function readBookmarks() {
@@ -14,20 +27,21 @@ function readBookmarks() {
     .then(response => response.json())
     .then(data =>
       store.bookmarks = data
-    ).then(renderStartPage)
+    ).then(bookmarks.renderStartPage)
 }
 
-function updateBookmark() {
 
+function deleteBookmark(id) {
+  fetch(
+    `https://thinkful-list-api.herokuapp.com/madisonslansky/bookmarks/${id}`
+    , {
+      method: "DELETE"
+    }).then(bookmarks.refreshStartPage)
 }
 
-function deleteBookmark() {
-  $(".bookmark-delete-button").on("click", function (evt) {
-    evt.preventDefault();
-    let template = `<p>${generateBookmarkList()}</p>
-        <div class= "bookmark-delete-button">
-          <button>Delete</button>
-        </div>`
 
-  })
+export default {
+  createBookmark,
+  readBookmarks,
+  deleteBookmark
 }
