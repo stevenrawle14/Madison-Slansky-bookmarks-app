@@ -5,38 +5,24 @@ import $ from 'jquery';
 
 
 function createBookmark(bookmark) {
-  fetch('https://thinkful-list-api.herokuapp.com/madisonslansky/bookmarks', {
+  return fetch('https://thinkful-list-api.herokuapp.com/madisonslansky/bookmarks', {
     method: "POST",
     body: JSON.stringify(bookmark),
     headers: {
       'Content-Type': 'application/json'
     }
   })
-    .then(response => response.json())
-    .then(json => {
-      if (json.message) {
-        window.alert(json.message);
-      } else if (json.id) {
-        bookmarks.refreshStartPage();
-      }
-    });
 }
 
 function readBookmarks() {
-  fetch('https://thinkful-list-api.herokuapp.com/madisonslansky/bookmarks')
-    .then(response => response.json())
-    .then(data =>
-      store.bookmarks = data
-    ).then(bookmarks.renderStartPage)
+  return fetch('https://thinkful-list-api.herokuapp.com/madisonslansky/bookmarks')
+
 }
 
 
 function deleteBookmark(id) {
-  fetch(
-    `https://thinkful-list-api.herokuapp.com/madisonslansky/bookmarks/${id}`
-    , {
-      method: "DELETE"
-    }).then(bookmarks.refreshStartPage)
+  const url = `https://thinkful-list-api.herokuapp.com/madisonslansky/bookmarks/${id}`
+  return fetch(url, { method: "DELETE" })
 }
 
 

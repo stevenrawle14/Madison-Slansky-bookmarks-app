@@ -10,7 +10,6 @@ function generateStartPage() {
     <h1>Galaxy Bookmarks</h1>
   </div>
 
-
   <div class="form-buttons">
     <form id = "add-bookmark-form">
       <button class="add-bookmark-button">Add New</button>
@@ -19,14 +18,14 @@ function generateStartPage() {
     <form id = "dropdown-search">
       <div class="dropdown">
         <button class="dropbtn">Filter by :</button>
-        <div class="dropdown-content">
-          <a class="star-rating-filter" rating="0">No filter</a>
-          <a class="star-rating-filter" rating="1">1 Star</a>
-          <a class="star-rating-filter" rating="2">2 Stars</a>
-          <a class="star-rating-filter" rating="3">3 Stars</a>
-          <a class="star-rating-filter" rating="4">4 Stars</a>
-          <a class="star-rating-filter" rating="5">5 Stars</a>
-        </div>
+        <select class="dropdown-content">
+          <option class="star-rating-filter" rating="0">No filter</option>
+          <option class="star-rating-filter" rating="1">1 Star</option>
+          <option class="star-rating-filter" rating="2">2 Stars</option>
+          <option class="star-rating-filter" rating="3">3 Stars</option>
+          <option class="star-rating-filter" rating="4">4 Stars</option>
+          <option class="star-rating-filter" rating="5">5 Stars</option>
+        </select>
       </div>
     </form>
   </div>
@@ -75,11 +74,11 @@ function generateStarRating(rating) {
     }
   }
   return `
-  <img class="rating-star" rating="1" src="${starFillings[0]}"/>
-  <img class="rating-star" rating="2" src="${starFillings[1]}"/>
-  <img class="rating-star" rating="3" src="${starFillings[2]}"/>
-  <img class="rating-star" rating="4" src="${starFillings[3]}"/>
-  <img class="rating-star" rating="5" src="${starFillings[4]}"/>
+  <button><img class="rating-star" rating="1" src="${starFillings[0]}" alt="rating-star-image"/></button>
+  <button><img class="rating-star" rating="2" src="${starFillings[1]}" alt="rating-star-image"/></button>
+  <button><img class="rating-star" rating="3" src="${starFillings[2]}" alt="rating-star-image"/></button>
+  <button><img class="rating-star" rating="4" src="${starFillings[3]}" alt="rating-star-image"/></button>
+  <button><img class="rating-star" rating="5" src="${starFillings[4]}" alt="rating-star-image"/></button>
   `;
 }
 
@@ -95,15 +94,18 @@ function generateNewBookmarkTemplate() {
     </div>
 
     <div class="title">
-      <input name="bookmark-title" placeholder="Title your Bookmark:"/>
+    <label for="bookmark-title"> Type your Title Here</label>
+      <input id="bookmark-title" name="bookmark-title" placeholder="Title your Bookmark:"/>
     </div>
     <div class="description-box">
+    <label for="bookmark-description"> Write a description</label>
       <textarea name="bookmark-description" placeholder="Description:"></textarea>
     </div>
 
     <h2>Rank this bookmark: </h2>
     </br>
     <div class ="rankings-flexbox">
+      <label for="bookmark-rating"> Rate your Bookmark</label>
       <input name="bookmark-rating" value=0 hidden="true"/>
       <div class="bookmark-stars-empty">${generateStarRating(0)}</div>
     </div>
@@ -154,8 +156,12 @@ function renderStarRating() {
 
 
 function refreshStartPage() {
-  api.readBookmarks();
+  api.readBookmarks()
+    .then(response => response.json())
+    .then(data => { store.bookmarks = data })
+    .then(renderStartPage)
 }
+
 
 function renderStartPage() {
   $("main").html(generateStartPage());

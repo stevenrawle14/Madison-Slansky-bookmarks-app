@@ -28,7 +28,16 @@ function handleCreateBookmark(evt) {
     "desc": newDescription,
     "rating": newRating
   };
-  api.createBookmark(bookmark);
+  api.createBookmark(bookmark)
+    .then(response => response.json())
+    .then(json => {
+      if (json.message) {
+        window.alert(json.message);
+      }
+      else if (json.id) {
+        bookmarks.refreshStartPage();
+      }
+    });
 }
 
 function handleStarRating(evt) {
@@ -57,7 +66,8 @@ function handleExpandedView(evt) {
 
 function handleDeleteBookmark() {
   let bookmarkId = $(this).attr("bookmarkId")
-  api.deleteBookmark(bookmarkId);
+  api.deleteBookmark(bookmarkId).then(bookmarks.refreshStartPage);
+
 }
 
 
