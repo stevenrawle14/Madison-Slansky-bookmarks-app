@@ -29,10 +29,11 @@ function handleCreateBookmark(evt) {
     "rating": newRating
   };
   api.createBookmark(bookmark)
-    .then(response => response.json())
-    .then(json => {
-      if (json.message) {
-        window.alert(json.message);
+    .then(response => {
+      if (!response.ok) {
+        store.error = true
+        //response.json().then(bookmarks.generateNewBookmarkTemplate)
+        response.json().then(() => bookmarks.generateNewBookmarkTemplate());
       }
       else if (json.id) {
         bookmarks.refreshStartPage();

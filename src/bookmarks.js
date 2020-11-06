@@ -83,6 +83,11 @@ function generateStarRating(rating) {
 }
 
 function generateNewBookmarkTemplate() {
+  let errorMessage = 'Mike is awesome'
+  console.log(store.error);
+  if (store.error) {
+    errorMessage = `<section><h1>${store.errorMessage}</h1></section>`
+  }
   return `
   <form>
     <h1>My Bookmarks</h1>
@@ -116,8 +121,9 @@ function generateNewBookmarkTemplate() {
       </div>
       <div class= "bookmark-create-button">
         <button>Create</button>
-      </div>
+      </div>      
     </div>
+    ${errorMessage}
   </form>
   `;
 }
