@@ -18,13 +18,13 @@ function generateStartPage() {
     <form id = "dropdown-search">
       <div class="dropdown">
         <button class="dropbtn">Filter by :</button>
-        <select class="dropdown-content">
-          <option class="star-rating-filter" rating="0">No filter</option>
-          <option class="star-rating-filter" rating="1">1 Star</option>
-          <option class="star-rating-filter" rating="2">2 Stars</option>
-          <option class="star-rating-filter" rating="3">3 Stars</option>
-          <option class="star-rating-filter" rating="4">4 Stars</option>
-          <option class="star-rating-filter" rating="5">5 Stars</option>
+        <select class="star-rating-filter-select dropdown-content">
+          <option class="star-rating-filter" value="0">No filter</option>
+          <option class="star-rating-filter" value="1">1 Star</option>
+          <option class="star-rating-filter" value="2">2 Stars</option>
+          <option class="star-rating-filter" value="3">3 Stars</option>
+          <option class="star-rating-filter" value="4">4 Stars</option>
+          <option class="star-rating-filter" value="5">5 Stars</option>
         </select>
       </div>
     </form>
@@ -53,7 +53,7 @@ function generateBookmarkList() {
     <div class="bookmark-stars-empty">${generateStarRating(bookmark.rating)}</div>
       <div class="expanded-view" bookmarkId="${bookmark.id}">
         <button>Expand</button>
-      <hr>
+      
       </div>
     ${expandedView}
     `
@@ -74,16 +74,16 @@ function generateStarRating(rating) {
     }
   }
   return `
-  <button><img class="rating-star" rating="1" src="${starFillings[0]}" alt="rating-star-image"/></button>
-  <button><img class="rating-star" rating="2" src="${starFillings[1]}" alt="rating-star-image"/></button>
-  <button><img class="rating-star" rating="3" src="${starFillings[2]}" alt="rating-star-image"/></button>
-  <button><img class="rating-star" rating="4" src="${starFillings[3]}" alt="rating-star-image"/></button>
-  <button><img class="rating-star" rating="5" src="${starFillings[4]}" alt="rating-star-image"/></button>
+  <button class="rating-star-button" type="button" rating="1"><img class="rating-star" src="${starFillings[0]}" alt="rating-star-image"/></button>
+  <button class="rating-star-button" type="button" rating="2"><img class="rating-star" src="${starFillings[1]}" alt="rating-star-image"/></button>
+  <button class="rating-star-button" type="button" rating="3"><img class="rating-star" src="${starFillings[2]}" alt="rating-star-image"/></button>
+  <button class="rating-star-button" type="button" rating="4"><img class="rating-star" src="${starFillings[3]}" alt="rating-star-image"/></button>
+  <button class="rating-star-button" type="button" rating="5"><img class="rating-star" src="${starFillings[4]}" alt="rating-star-image"/></button>
   `;
 }
 
 function generateNewBookmarkTemplate() {
-  let errorMessage = 'Mike is awesome'
+  let errorMessage = ''
   console.log(store.error);
   if (store.error) {
     errorMessage = `<section><h1>${store.errorMessage}</h1></section>`
@@ -99,18 +99,18 @@ function generateNewBookmarkTemplate() {
     </div>
 
     <div class="title">
-    <label for="bookmark-title"> Type your Title Here</label>
+    <label for="bookmark-title"></label>
       <input id="bookmark-title" name="bookmark-title" placeholder="Title your Bookmark:"/>
     </div>
     <div class="description-box">
-    <label for="bookmark-description"> Write a description</label>
-      <textarea name="bookmark-description" placeholder="Description:"></textarea>
+    <label for="bookmark-description"></label>
+      <textarea name="bookmark-description" required placeholder="Description:"></textarea>
     </div>
 
     <h2>Rank this bookmark: </h2>
-    </br>
+   
     <div class ="rankings-flexbox">
-      <label for="bookmark-rating"> Rate your Bookmark</label>
+      <label for="bookmark-rating"></label>
       <input name="bookmark-rating" value=0 hidden="true"/>
       <div class="bookmark-stars-empty">${generateStarRating(0)}</div>
     </div>
@@ -143,7 +143,7 @@ function generateExpandedView(bookmark) {
     <div class="delete-bookmark" bookmarkId="${bookmark.id}">
       <button>Delete</button>
     </div>
-  <hr>
+  
   </div>
   `
 }
