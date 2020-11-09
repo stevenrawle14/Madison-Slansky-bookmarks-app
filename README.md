@@ -1,6 +1,6 @@
 LIVE LINK: https://thinkful-ei-tiger.github.io/Madison-Slansky-bookmarks-app/ 
 
-LINK TO REPO: https://github.com/thinkful-ei-tiger/Madison-Slansky-bookmarks-app/edit/main/README.md
+LINK TO REPO: https://github.com/thinkful-ei-tiger/Madison-Slansky-bookmarks-app/ 
 
 Project Overview:
 
